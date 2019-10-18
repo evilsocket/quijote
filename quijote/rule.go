@@ -16,6 +16,7 @@ import (
 
 // RuleScope represents what the rule is targeting of the request
 type RuleScope string
+
 // Scopes is a map of allowed scopes
 var Scopes = map[string]RuleScope{
 	"ip":      RuleScope("ip"),      // client ip address
@@ -30,6 +31,7 @@ var Scopes = map[string]RuleScope{
 
 // RuleType indicates how to handle rule's parts
 type RuleType string
+
 // Types is a map of allowed rule types
 var Types = map[string]RuleType{
 	"str": RuleType("str"),

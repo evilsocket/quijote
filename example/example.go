@@ -76,7 +76,7 @@ func main() {
 					line = tmp
 				}
 
-				endpoint, err := url.Parse("http://" + address + "/")
+				endpoint, err := url.Parse(fmt.Sprintf("http://%s/", address))
 				parameters := url.Values{}
 				parameters.Add("foo", line)
 				endpoint.RawQuery = parameters.Encode()

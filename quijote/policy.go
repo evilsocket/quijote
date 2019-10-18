@@ -76,7 +76,7 @@ func DefaultPolicy() Policy {
 	}
 }
 
-// DefaultPolicy returns a Policy object with default values (asynchronous mode).
+// AsyncPolicy returns a Policy object with default values (asynchronous mode).
 func AsyncPolicy() Policy {
 	return Policy{
 		RulesPath:        "/etc/quijote/rules/",

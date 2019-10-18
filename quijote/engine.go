@@ -100,16 +100,16 @@ func (eng *Engine) doReport(r *http.Request, rule *Rule, match Match) {
 				sanitize.BaseName(rule.Name),
 				time.Now().UnixNano()))
 
-		obj := map[string]interface{} {
+		obj := map[string]interface{}{
 			"detected_at": time.Now(),
-			"rule": rule,
-			"match": match,
-			"client": offender,
+			"rule":        rule,
+			"match":       match,
+			"client":      offender,
 			// "request": r,
 		}
 
-		if data, err := json.Marshal(obj); err == nil{
-			if err := ioutil.WriteFile(dumpFilename, data, os.ModePerm); err != nil{
+		if data, err := json.Marshal(obj); err == nil {
+			if err := ioutil.WriteFile(dumpFilename, data, os.ModePerm); err != nil {
 				log.Error("could not save %s: %v", dumpFilename, err)
 			}
 		} else {

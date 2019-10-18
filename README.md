@@ -12,7 +12,7 @@
 fruits in terms of web attacks and therefore providing a basic layer of security. It might not detect the most sophisticated 
 attacks, but damn, it will never stop trying! (And it's better than nothing?)
 
-**THIS PROJECT IS ACTIVELY BEING DEVELOPED, DO NOT USE IN PRODUCTION YET.*** 
+**THIS PROJECT IS ACTIVELY BEING DEVELOPED, DO NOT USE IN PRODUCTION YET.** 
 
 ... but if you can help improving the rules, the code base, writing tests or whatever, all PRs are welcome! :D
 

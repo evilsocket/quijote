@@ -1,7 +1,6 @@
 package main
 
 import (
-	"os"
 	"fmt"
 	"github.com/evilsocket/islazy/fs"
 	"github.com/evilsocket/islazy/str"
@@ -9,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
 	"time"
 
 	"github.com/evilsocket/islazy/log"
@@ -56,7 +56,7 @@ func main() {
 
 	router.HandleFunc("/", homeLink)
 
-	go func () {
+	go func() {
 		time.Sleep(100 * time.Millisecond)
 		log.Info("testing vectors ...")
 
@@ -88,7 +88,7 @@ func main() {
 					panic(err)
 				} else {
 					defer resp.Body.Close()
-					 _, _ = ioutil.ReadAll(resp.Body)
+					_, _ = ioutil.ReadAll(resp.Body)
 					// fmt.Printf("%s\n", body)
 
 					if resp.StatusCode != policy.Redirect.Code {
@@ -116,5 +116,5 @@ func main() {
 	}()
 
 	log.Info("quijote protected API running on http://%s/ ...", address)
-	log.Fatal("%v", http.ListenAndServe( address, router))
+	log.Fatal("%v", http.ListenAndServe(address, router))
 }

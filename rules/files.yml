@@ -1,0 +1,7 @@
+name: files
+enabled: true
+type: re
+scope: '*'
+parts:
+  # attacker is trying to locate a file to read or write.
+  - (?i:(\%SYSTEMROOT\%))

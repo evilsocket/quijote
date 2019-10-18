@@ -1,0 +1,7 @@
+name: lfi
+enabled: true
+type: re
+scope: '*'
+parts:
+  # perl echo shellcode injection and LDAP vectors
+  - (?:\.pl\?\w+=\w?\|\w+;)|(?:\|\(\w+=\*)|(?:\*\s*\)+\s*;)

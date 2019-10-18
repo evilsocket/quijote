@@ -1,0 +1,22 @@
+name: xss
+enabled: true
+type: re
+scope: '*'
+parts:
+  # just a tag
+  - <[^>]+>
+  # open tag with script
+  - <[^>]+script:.+
+  # open tag with attribute
+  - <[^>]+\s*\w\s*
+  - <[^>]+\w=.+
+  # basic obfuscation
+  - \.\s*fromCharCode
+  # html breaking injections including whitespace attacks
+  - (?:"[^"]*[^-]?>)|(?:[^\w\s]\s*\/>)|(?:>")
+  # attribute breaking injections including whitespace attacks
+  - (?:"+.*[<=]\s*"[^"]+")|(?:"\s*\w+\s*=)|(?:>\w=\/)|(?:#.+\)["\s]*>)|(?:"\s*(?:src|style|on\w+)\s*=\s*")|(?:[^"]?"[,;\s]+\w*[\[\(])
+  # unquoted attribute breaking injections
+  - (?:^>[\w\s]*<\/?\w{2,}>)
+  # url-, name-, JSON, and referrer-contained payload attacks
+  - (?:[+\/]\s*name[\W\d]*[)+])|(?:;\W*url\s*=)|(?:[^\w\s\/?:>]\s*(?:location|referrer|name)\s*[^\/\w\s-])

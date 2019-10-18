@@ -1,0 +1,8 @@
+name: ban localhost
+enabled: false
+description: "Don't do this :D"
+type: str
+targets: ip
+body:
+  - 127.0.0.1
+  - localhost

@@ -1,0 +1,7 @@
+name: command execution
+enabled: true
+type: re
+scope: '*'
+parts:
+  # remote code exectuion tests. Will match "ping -n 3 localhost" and "ping localhost -n 3"
+  - (?i:(ping(.*)[\-(.*)\w|\w(.*)\-]))

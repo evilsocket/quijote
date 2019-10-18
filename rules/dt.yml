@@ -1,0 +1,11 @@
+name: dt
+enabled: true
+type: re
+scope: '*'
+parts:
+  # basic directory traversal
+  - (?:(?:\/|\\)?\.+(\/|\\)(?:\.+)?)|(?:\w+\.exe\??\s)|(?:;\s*\w+\s*\/[\w*-]+\/)|(?:\d\.\dx\|)|(?:%(?:c0\.|af\.|5c\.))|(?:\/(?:%2e){2})
+  # specific directory and path traversal
+  - (?:%c0%ae\/)|(?:(?:\/|\\)(home|conf|usr|etc|proc|opt|s?bin|local|dev|tmp|kern|[br]oot|sys|system|windows|winnt|program|%[a-z_-]{3,}%)(?:\/|\\))|(?:(?:\/|\\)inetpub|localstart\.asp|boot\.ini)
+  # etc/passwd inclusion attempts
+  - (?:etc\/\W*passwd)

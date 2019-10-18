@@ -17,6 +17,7 @@ import (
 	"time"
 )
 
+// Engine contains quijote's security middleware and its configuration.
 type Engine struct {
 	Middleware func(next http.Handler) http.Handler
 	policy     Policy
@@ -25,6 +26,7 @@ type Engine struct {
 	offenders  sync.Map
 }
 
+// NewEngine returns a new Engine object given a policy.
 func NewEngine(policy Policy) (*Engine, error) {
 	eng := &Engine{
 		policy:    policy,

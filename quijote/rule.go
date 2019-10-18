@@ -123,15 +123,7 @@ func (rule *Rule) checkFor(target string, data []byte) (Match, bool) {
 	return Match{}, false
 }
 
-func (rule *Rule) Matches(req *http.Request, policy Policy) (match Match, matched bool) {
-	if match, matched = rule.checkFor("method", []byte(req.Method)); matched {
-		return
-	} else if match, matched = rule.checkFor("proto", []byte(req.Proto)); matched {
-		return
-	} else if match, matched = rule.checkFor("path", []byte(req.URL.Path)); matched {
-		return
-	}
-
+func (rule *Rule) checkQuery(req *http.Request, policy Policy) (match Match, matched bool) {
 	if rule.isTargeting("query") {
 		for param, values := range req.URL.Query() {
 			if pattern := rule.matchCb([]byte(param)); pattern != "" {
@@ -163,11 +155,10 @@ func (rule *Rule) Matches(req *http.Request, policy Policy) (match Match, matche
 		}
 	}
 
-	decoded, _ := url.QueryUnescape(req.URL.RawQuery)
-	if match, matched = rule.checkFor("query", []byte(decoded)); matched {
-		return
-	}
+	return Match{}, false
+}
 
+func (rule *Rule) checkIP(req *http.Request, policy Policy) (match Match, matched bool) {
 	if rule.isTargeting("ip") {
 		address := strings.Split(req.RemoteAddr, ":")[0]
 		if pattern := rule.matchCb([]byte(address)); pattern != "" {
@@ -199,7 +190,10 @@ func (rule *Rule) Matches(req *http.Request, policy Policy) (match Match, matche
 			}
 		}
 	}
+	return Match{}, false
+}
 
+func (rule *Rule) checkHeaders(req *http.Request, policy Policy) (match Match, matched bool) {
 	if rule.isTargeting("headers") {
 		for name, values := range req.Header {
 			for _, value := range values {
@@ -213,7 +207,10 @@ func (rule *Rule) Matches(req *http.Request, policy Policy) (match Match, matche
 			}
 		}
 	}
+	return Match{}, false
+}
 
+func (rule *Rule) checkBody(req *http.Request, policy Policy) (match Match, matched bool) {
 	if rule.isTargeting("body") && req.Body != nil && req.Body != http.NoBody {
 		// NOTE: we use a LimitReader so we can't be DoSed
 		if body, err := ioutil.ReadAll(io.LimitReader(req.Body, policy.MaxBodySize)); err == nil {
@@ -232,7 +229,25 @@ func (rule *Rule) Matches(req *http.Request, policy Policy) (match Match, matche
 			log.Warning("error reading request body: %v", err)
 		}
 	}
+	return Match{}, false
+}
 
+func (rule *Rule) Matches(req *http.Request, policy Policy) (match Match, matched bool) {
+	if match, matched = rule.checkFor("method", []byte(req.Method)); matched {
+		return
+	} else if match, matched = rule.checkFor("proto", []byte(req.Proto)); matched {
+		return
+	} else if match, matched = rule.checkFor("path", []byte(req.URL.Path)); matched {
+		return
+	} else if match, matched = rule.checkQuery(req, policy); matched {
+		return
+	} else if match, matched = rule.checkIP(req, policy); matched {
+		return
+	} else if match, matched = rule.checkHeaders(req, policy); matched {
+		return
+	} else if match, matched = rule.checkBody(req, policy); matched {
+		return
+	}
 	return Match{}, false
 }
 

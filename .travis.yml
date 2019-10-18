@@ -1,0 +1,14 @@
+dist: bionic
+language: go
+go:
+  - 1.x
+env:
+  global:
+    - LANG=C
+    - LC_ALL=C
+cache:
+  apt: true
+before_script:
+  - sudo apt-get -y update || true
+script:
+  - go build example/example.go

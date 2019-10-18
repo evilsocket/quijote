@@ -4,7 +4,6 @@
     <a href="https://github.com/evilsocket/quijote/blob/master/LICENSE.md"><img alt="Software License" src="https://img.shields.io/badge/license-GPL3-brightgreen.svg?style=flat-square"></a>
     <a href="https://travis-ci.org/evilsocket/quijote"><img alt="Travis" src="https://img.shields.io/travis/evilsocket/quijote/master.svg?style=flat-square"></a>
     <a href="https://goreportcard.com/report/github.com/evilsocket/quijote"><img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/evilsocket/quijote?style=flat-square&fuckgithubcache=1"></a>
-    <a href="https://codecov.io/gh/evilsocket/quijote"><img alt="Code Coverage" src="https://img.shields.io/codecov/c/github/evilsocket/quijote/master.svg?style=flat-square"></a>
   </p>
 </p>
 

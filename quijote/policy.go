@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// CORS contains configuration options for CORS headers.
 type CORS struct {
 	Enabled        bool
 	AllowedOrigin  string
@@ -12,12 +13,15 @@ type CORS struct {
 	AllowedMethods string
 }
 
+// Redirect contains either an URL or an HTML body to return (with a given code)
+// as a response to blocked requests
 type Redirect struct {
 	Code int
 	URL  string
 	Body string
 }
 
+// Policy contains all the configuration fields that determine how quijote's Engine will behave.
 type Policy struct {
 	// path where to load yaml rule files from
 	RulesPath string
@@ -46,6 +50,7 @@ type Policy struct {
 	DumpPath string
 }
 
+// DefaultPolicy returns a Policy object with default values (synchronous mode).
 func DefaultPolicy() Policy {
 	return Policy{
 		RulesPath:        "/etc/quijote/rules/",
@@ -71,6 +76,7 @@ func DefaultPolicy() Policy {
 	}
 }
 
+// DefaultPolicy returns a Policy object with default values (asynchronous mode).
 func AsyncPolicy() Policy {
 	return Policy{
 		RulesPath:        "/etc/quijote/rules/",

@@ -14,8 +14,9 @@ import (
 	"strings"
 )
 
+// RuleScope represents what the rule is targeting of the request
 type RuleScope string
-
+// Scopes is a map of allowed scopes
 var Scopes = map[string]RuleScope{
 	"ip":      RuleScope("ip"),      // client ip address
 	"method":  RuleScope("method"),  // http method
@@ -27,14 +28,16 @@ var Scopes = map[string]RuleScope{
 	"*":       RuleScope("*"),       // all of the above
 }
 
+// RuleType indicates how to handle rule's parts
 type RuleType string
-
+// Types is a map of allowed rule types
 var Types = map[string]RuleType{
 	"str": RuleType("str"),
 	"re":  RuleType("re"),
 	// "js":  RuleType("js"),
 }
 
+// Rule contains the information about a rule and its parts.
 type Rule struct {
 	Name        string   `yaml:"name"`           // rule name
 	Description string   `yaml:"description"`    // description
@@ -48,6 +51,7 @@ type Rule struct {
 	scopes   map[RuleScope]bool
 }
 
+// Match contains information about what a rule just matched.
 type Match struct {
 	// name of what matched
 	Label string
@@ -57,6 +61,7 @@ type Match struct {
 	Data string
 }
 
+// LoadRule loads a rule given its YAML file name.
 func LoadRule(fileName string) (*Rule, error) {
 	data, err := ioutil.ReadFile(fileName)
 	if err != nil {
@@ -232,6 +237,7 @@ func (rule *Rule) checkBody(req *http.Request, policy Policy) (match Match, matc
 	return Match{}, false
 }
 
+// Matches returns a match object and true if the rule matches parts of the provided request, otherwise false.
 func (rule *Rule) Matches(req *http.Request, policy Policy) (match Match, matched bool) {
 	if match, matched = rule.checkFor("method", []byte(req.Method)); matched {
 		return

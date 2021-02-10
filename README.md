@@ -71,7 +71,7 @@ import (
 policy := Policy{
 	// where to load the rules from 
 	RulesPath: "/etc/quijote/rules/",
-	// whethere or not to dump detections as JSON files for further investigation
+	// whether or not to dump detections as JSON files for further investigation
 	Dump:     true,
 	DumpPath: "/var/log/quijote/detections/",
 	// which mode to operate
